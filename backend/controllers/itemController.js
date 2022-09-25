@@ -41,7 +41,7 @@ const setItem = asyncHandler(async (req, res) => {
 
 // @desc Update item
 // @route PUT /api/items/:id
-// @access Pubblic
+// @access Public
 const updateItem = asyncHandler(async (req, res) => {
     const item = await Item.findById(req.params.id)
 
