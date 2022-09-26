@@ -1,10 +1,14 @@
 import React from 'react'
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from "react-router-dom";
 import { addToCart } from '../reducers/cartSlice';
 import { decrementQuantity } from '../reducers/storageSlice';
 
+//const ITEMS_URL = 'http://localhost:5000/api/items'
+
 export function Main() {
+  
   const storage = useSelector((state) => state.storage.storage)
   const dispatch = useDispatch()
 
@@ -37,13 +41,16 @@ export function Main() {
       </div>
       <br/>
       <div>
-        <Link to="/Display">Display</Link>
-      </div>
-      <div>
         <Link to="/Storage">Storage</Link>
       </div>
       <div>
         <Link to="/Cart">Cart</Link>
+      </div>
+      <div>
+        <Link to="/ItemCreator">Create Item</Link>
+      </div>
+      <div>
+        <Link to="/Items">All Items</Link>
       </div>
     </div>
   )

@@ -1,4 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
+import itemService  from '../support/itemService'
+
+// const items = itemService.getItems().then(value => {
+//   console.log(value);
+//   return value;
+// })
+//console.log(items);
 
 export const storageSlice = createSlice({
   name: 'storage',
