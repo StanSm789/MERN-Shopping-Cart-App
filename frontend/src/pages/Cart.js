@@ -3,6 +3,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { removeFromCart, increment, decrement } from '../reducers/cartSlice'
 import { incrementQuantity, decrementQuantity, incrementByCertainNumber } from '../reducers/storageSlice'
 import { Link } from "react-router-dom";
+import { Layout, Card } from 'antd';
+
+const { Header, Footer, Content } = Layout;
 
 export function Cart() {
     const cart = useSelector((state) => state.cart.cart)
@@ -35,38 +38,41 @@ export function Cart() {
     }
     
     return (
-        <div>
-            <h1>Cart</h1>
-            <div>
-                <p>Cart Items:</p>
-                <div>
-                    {cart.map(item => 
-                    <p key={item.id}>Name: {item.name}
-                        <br/>
-                        <button
-                        aria-label="Increment value"
-                        onClick={() => incrementItemCount(storage, item)}
-                        >
-                            Increment
-                        </button>
-                        <span>{item.quantity}</span>
-                        <button
-                        aria-label="Decrement value"
-                        onClick={() => decrementItemCount(item)}
-                        >
-                            Decrement
-                        </button>
-                        <br/>
-                        <button onClick={() => removeItemFromCart(item)}>Remove From Cart</button>
-                        <br/>
-                    </p>
-          )}
+        <Layout className='layout-container'>
+            <Header className='header-container'>
+                <h1 className='text-colors'>Cart</h1>
+            </Header>
+            <Content className='content'>
+                <div className='site-layout-content'>
+                    <p>Cart Items:</p>
+                    <div>
+                        {cart.map(item => 
+                        <Card key={item.id} title={item.name} style={{ width: 300 }}>
+                            <button
+                            aria-label="Increment value"
+                            onClick={() => incrementItemCount(storage, item)}
+                            >
+                                Increment
+                            </button>
+                            <span>{item.quantity}</span>
+                            <button
+                            aria-label="Decrement value"
+                            onClick={() => decrementItemCount(item)}
+                            >
+                                Decrement
+                            </button>
+                            <br/>
+                            <button onClick={() => removeItemFromCart(item)}>Remove From Cart</button>
+                            <br/>
+                        </Card>
+                        )}
+                    </div>
+                    <br/>
+                    <div>
+                        <Link to="/">Home</Link>
+                    </div>
                 </div>
-            </div>
-            <br/>
-      <div>
-        <Link to="/">Home</Link>
-      </div>
-    </div>
+      </Content>
+    </Layout>
     )
   };
