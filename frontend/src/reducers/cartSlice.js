@@ -7,9 +7,9 @@ export const cartSlice = createSlice({
   },
   reducers: {
     addToCart: (state, action) => {
-      if (state.cart.find(x => x.id === action.payload.id)) {
+      if (state.cart.find(x => x._id === action.payload._id)) {
         state.cart.map(obj => {
-          if (obj.id === action.payload.id) {
+          if (obj._id === action.payload._id) {
             console.log('quantity of this object was increased by 1: ', action.payload)
             return {...obj, quantity: obj.quantity += 1};
           }
@@ -22,11 +22,11 @@ export const cartSlice = createSlice({
     },
     removeFromCart: (state, action) => ({
       ...state,
-      cart: state.cart.filter(item => item.id !== action.payload.id)
+      cart: state.cart.filter(item => item._id !== action.payload._id)
     }),
     increment: (state, action) => {
       state.cart.map(obj => {
-        if (obj.id === action.payload.id) {
+        if (obj._id === action.payload._id) {
           console.log('quantity of this object was increased by 1: ', action.payload)
           return {...obj, quantity: obj.quantity += 1}
         }
@@ -35,7 +35,7 @@ export const cartSlice = createSlice({
     },
     decrement: (state, action) => {
       state.cart.map(obj => {
-        if (obj.id === action.payload.id) {
+        if (obj._id === action.payload._id) {
           console.log('quantity of this object was decreased by 1: ', action.payload)
           return {...obj, quantity: obj.quantity -= 1}
         }
