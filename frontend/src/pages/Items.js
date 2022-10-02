@@ -1,39 +1,32 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux'
+import { getItems, deleteItem } from '../features/itemSlice'
 
 const ITEMS_URL = '/api/items'
 
 export function Items() {
-  const [items, setItems] = useState([]);
+  const { items, isError, message } = useSelector(
+    (state) => state.items
+  )
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
 
-    async function getItems() {
-      const response = await fetch(ITEMS_URL);
-  
-      if (!response.ok) {
-        const message = `An error occurred: ${response.statusText}`;
-        window.alert(message);
-        return;
-      }
-  
-      const items = await response.json();
-      setItems(items);
+    if (isError) {
+      console.log(message)
     }
   
-    getItems();
+    dispatch(getItems());
   
     return;
-  }, [items.length]);
+  }, [ isError, message, dispatch ]);
 
-  async function deleteItem(id) {
-    await fetch(`${ITEMS_URL}/${id}`, {
-      method: "DELETE"
-    });
-  
-    const newRecords = items.filter((el) => el._id !== id);
-    setItems(newRecords);
+  async function deleteChosenItem(id) {
+    dispatch(deleteItem(id))
+    window.location.reload(false)
   }
 
   return (
@@ -47,7 +40,7 @@ export function Items() {
             <Link to={`${item._id}`}>{item.name}</Link>
             <p>Quantity: {item.quantity}</p>
             <p>Description: {item.description}</p>
-            <button onClick={() => deleteItem(item._id)}>
+            <button onClick={() => deleteChosenItem(item._id)}>
                 Delete Item
             </button>
             <br/>

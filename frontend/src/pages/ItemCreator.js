@@ -2,7 +2,8 @@ import React from 'react'
 import { Link } from "react-router-dom";
 import { useState } from 'react';
 import { useNavigate } from "react-router";
-import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { createItem } from '../features/itemSlice'
 
 const ITEMS_URL = '/api/items'
 
@@ -12,6 +13,8 @@ export function ItemCreator() {
         quantity: 0,
         description: "",
     });
+
+    const dispatch = useDispatch()
 
     const navigate = useNavigate();
 
@@ -25,24 +28,8 @@ export function ItemCreator() {
         e.preventDefault();
       
         const newItem = { ...form };
-      
-        // await fetch(ITEMS_URL, {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify(newItem),
-        // })
-        // .catch(error => {
-        //   window.alert(error);
-        //   return;
-        // });
 
-        await axios.post(ITEMS_URL, newItem)
-        .catch(error => {
-          window.alert(error);
-          return;
-        });
+        dispatch(createItem(newItem))
       
         setForm({ name: "", quantity: 0, description: "" });
         navigate("/");

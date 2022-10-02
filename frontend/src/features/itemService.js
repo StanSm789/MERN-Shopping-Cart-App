@@ -21,7 +21,7 @@ const getItems = async () => {
 // Delete item
 const deleteItem = async (itemId) => {
 
-  const response = await axios.delete(API_URL + itemId)
+  const response = await axios.delete(API_URL + '/' + itemId)
 
   return response.data
 }

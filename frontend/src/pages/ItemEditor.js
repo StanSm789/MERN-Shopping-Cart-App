@@ -1,10 +1,18 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
+import { useDispatch, useSelector } from 'react-redux'
+import { getItems } from '../features/itemSlice'
+import axios from 'axios'
 
 const ITEMS_URL = '/api/items'
 
 export function ItemEditor() {
+    const { items, isError, message } = useSelector(
+      (state) => state.items
+    )
+    const dispatch = useDispatch()
+
     const [form, setForm] = useState({
         name: "",
         quantity: 0,
@@ -16,23 +24,18 @@ export function ItemEditor() {
 
     useEffect(() => {
         async function fetchData() {
-            const response = await fetch(ITEMS_URL);
+
+            if (isError) {
+              console.log(message)
+            }
+          
+            dispatch(getItems());
 
             const id = params.id.toString();
-  
-            if (!response.ok) {
-              const message = `An error occurred: ${response.statusText}`;
-              window.alert(message);
-              return;
-            }
-        
-            const items = await response.json();
 
             const record = items.map((item) => {
                 if(item._id === id) return item;
             });
-
-            console.log('ITEM:', record);
 
           if (!record) {
             window.alert(`Record with id ${id} not found`);
@@ -46,7 +49,7 @@ export function ItemEditor() {
         fetchData();
       
         return;
-      }, [params.id, navigate]);
+      }, [params.id, isError, message, dispatch, navigate]);
 
       function updateForm(value) {
         return setForm((prev) => {
@@ -61,16 +64,11 @@ export function ItemEditor() {
           quantity: form.quantity,
           description: form.description,
         };
-      
-        await fetch(`${ITEMS_URL}/${params.id}`, {
-          method: "PUT",
-          body: JSON.stringify(editedItem),
-          headers: {
-            'Content-Type': 'application/json'
-          },
-        });
+
+        await axios.put(ITEMS_URL + '/' + params.id, editedItem)
       
         navigate("/");
+        window.location.reload(false)
       }
 
     return (
@@ -82,6 +80,7 @@ export function ItemEditor() {
          <input
            type="text"
            id="name"
+           required
            value={form.name}
            onChange={(e) => updateForm({ name: e.target.value })}
          />
@@ -92,6 +91,7 @@ export function ItemEditor() {
            type="number" 
            min="0"
            id="quantity"
+           required
            value={form.quantity}
            onChange={(e) => updateForm({ quantity: e.target.value })}
          />
@@ -101,6 +101,7 @@ export function ItemEditor() {
          <input
            type="text"
            id="description"
+           required
            value={form.description}
            onChange={(e) => updateForm({ description: e.target.value })}
          />
