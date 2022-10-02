@@ -1,12 +1,9 @@
 import React from 'react'
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from "react-router-dom"
-import { addToCart } from '../reducers/cartSlice'
-//import { addItemToCart } from '../features/cartSlice'
-//import { decrementQuantity } from '../reducers/storageSlice';
-import { reset, getItems, decrementItemQuantity } from '../features/itemSlice'
+import { addToCart } from '../features/cartSlice'
+import { decrementItemQuantity } from '../features/itemSlice'
 import { Layout, Col, Row, Divider, Card } from 'antd'
 import 'antd/dist/antd.css'
 import '../index.css'
@@ -14,9 +11,12 @@ import '../index.css'
 const { Header, Footer, Content } = Layout;
 
 export function Main() {
-  
-//   const storage = useSelector((state) => state.storage.storage)
-//   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const { items, isError, message } = useSelector(
+    (state) => state.items
+  )
 
   function addItem(item) {
     var cartItem = {...item, quantity: 1}
@@ -28,25 +28,6 @@ export function Main() {
     dispatch(decrementItemQuantity(item))
  }
 
-const navigate = useNavigate()
-  const dispatch = useDispatch()
-
-  const { items, isError, message } = useSelector(
-    (state) => state.items
-  )
-
-  // useEffect(() => {
-  //   if (isError) {
-  //     console.log(message)
-  //   }
-
-  //   dispatch(getItems())
-
-  //   return () => {
-  //     dispatch(reset())
-  //   }
-  // }, [navigate, isError, message, dispatch])
-
   return (
     <Layout className='layout-container'>
       <Header className='header-container'>
@@ -57,7 +38,7 @@ const navigate = useNavigate()
           <h2>React/Redux Shopping Cart</h2>
           <Row>
             <Col span={12}>
-              <Link to="/Storage">Storage</Link>
+              <p>AAA</p>
             </Col>
             <Col span={12}>
               <Link to="/Cart">Cart</Link>

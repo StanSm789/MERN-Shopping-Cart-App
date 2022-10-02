@@ -1,5 +1,4 @@
 import { Main } from './pages/Main';
-import { Storage } from './pages/Storage';
 import { Cart } from './pages/Cart';
 import { ItemCreator } from './pages/ItemCreator';
 import { Items } from './pages/Items';
@@ -11,7 +10,6 @@ function App() {
     <BrowserRouter>
       <Routes>
       <Route index element={<Main />} />
-      <Route path="storage" element={<Storage />} />
       <Route path="cart" element={<Cart />} />
       <Route path="itemCreator" element={<ItemCreator />} />
       <Route path="items" element={<Items />} />

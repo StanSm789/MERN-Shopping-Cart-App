@@ -128,7 +128,7 @@ export const itemSlice = createSlice({
         state.isLoading = false
         state.isSuccess = true
         state.items = state.items.filter(
-          (item) => item._id !== action.payload.id
+          (item) => item._id !== action.payload._id
         )
       })
       .addCase(deleteItem.rejected, (state, action) => {
