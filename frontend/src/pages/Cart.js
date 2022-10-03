@@ -4,9 +4,9 @@ import { removeFromCart, increment, decrement } from '../features/cartSlice'
 import { incrementItemQuantity, decrementItemQuantity, incrementItemQuantityByCertainNumber } from '../features/itemSlice'
 import { HeaderComponent } from '../components/HeaderComponent'
 import { Link } from "react-router-dom";
-import { Layout, Card } from 'antd';
+import { Layout, List } from 'antd';
 
-const { Header, Footer, Content } = Layout;
+const { Footer, Content } = Layout;
 
 export function Cart() {
     const { cart } = useSelector(
@@ -19,7 +19,7 @@ export function Cart() {
 
     function incrementItemCount(items, item) {
         var storageItem = items.find(element => element._id === item._id)
-
+        
         if (storageItem.quantity !== 0) {
             dispatch(increment(item))
             dispatch(decrementItemQuantity(item))
@@ -52,9 +52,21 @@ export function Cart() {
                     <br/>
                     <h1>Cart</h1>
                     <br/>
-                    <div>
-                        {cart.map(item => 
-                        <Card key={item.id} title={item.name} style={{ width: 300 }}>
+                    <List
+                    itemLayout="vertical"
+                    size="large"
+                    pagination={{
+                    onChange: (page) => {
+                        console.log(page);
+                    },
+                    pageSize: 3,
+                    }}
+                    dataSource={cart}
+                    renderItem={(item) => (
+                        <List.Item
+                            key={item}
+                        >
+                            <h3>{item.name}</h3>
                             <button
                             aria-label="Increment value"
                             onClick={() => incrementItemCount(items, item)}
@@ -71,9 +83,9 @@ export function Cart() {
                             <br/>
                             <button onClick={() => removeItemFromCart(item)}>Remove From Cart</button>
                             <br/>
-                        </Card>
-                        )}
-                    </div>
+                        </List.Item>
+                    )}
+                    />
                     <br/>
                     <div>
                         <Link to="/">Home</Link>

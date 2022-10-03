@@ -17,7 +17,6 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 //   Promise.all([
 //      axios('http://localhost:5000/api/items')]).then((items) => {
 //      dispatch(getItems());
-//      // если не будет работать, то возвращайте Promise.resolve
 //      // return Promise.resolve();
 //   }).then(() => {
 //       root.render(

@@ -33,8 +33,6 @@ export function ItemEditor() {
               console.log(message)
             }
           
-            dispatch(getItems());
-
             const id = params.id.toString();
 
             const record = items.map((item) => {

@@ -6,26 +6,15 @@ import { getItems, deleteItem } from '../features/itemSlice'
 import { HeaderComponent } from '../components/HeaderComponent'
 import { Layout, List } from 'antd';
 
-const { Header, Footer, Content } = Layout;
+const { Footer, Content } = Layout;
 const ITEMS_URL = '/api/items'
 
 export function Items() {
-  const { items, isError, message } = useSelector(
+  const { items } = useSelector(
     (state) => state.items
   )
 
   const dispatch = useDispatch()
-
-  useEffect(() => {
-
-    if (isError) {
-      console.log(message)
-    }
-  
-    dispatch(getItems());
-  
-    return;
-  }, [ isError, message, dispatch ]);
 
   async function deleteChosenItem(id) {
     dispatch(deleteItem(id))

@@ -1,19 +1,5 @@
-.layout-container {
-    
-}
-
-.header-container {
-    background-color: #483D8B !important;
-    height: 10vh;
-}
-
 .text-colors {
     color: crimson !important;
-}
-
-.content {
-    padding: 50px;
-    height: 80vh;
 }
 
 .site-layout-content {
@@ -22,11 +8,6 @@
     background: #fff;
     height: 80vh;
   }
-
-  .footer-container {
-    height: 10vh;
-  }
-
 
   .site-layout-content {
     min-height: 280px;
@@ -52,3 +33,4 @@
   .button-style {
     margin: 8px;
   }
+  
