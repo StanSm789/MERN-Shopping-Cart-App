@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { removeFromCart, increment, decrement } from '../features/cartSlice'
 import { incrementItemQuantity, decrementItemQuantity, incrementItemQuantityByCertainNumber } from '../features/itemSlice'
+import { HeaderComponent } from '../components/HeaderComponent'
 import { Link } from "react-router-dom";
 import { Layout, Card } from 'antd';
 
@@ -42,13 +43,15 @@ export function Cart() {
     }
     
     return (
-        <Layout className='layout-container'>
-            <Header className='header-container'>
-                <h1 className='text-colors'>Cart</h1>
-            </Header>
-            <Content className='content'>
-                <div className='site-layout-content'>
-                    <p>Cart Items:</p>
+        <Layout className="layout">
+            <HeaderComponent>
+            </HeaderComponent>
+            <Content className='content-style'>
+                <div className="site-layout-content">
+                    <br/>
+                    <br/>
+                    <h1>Cart</h1>
+                    <br/>
                     <div>
                         {cart.map(item => 
                         <Card key={item.id} title={item.name} style={{ width: 300 }}>
@@ -76,9 +79,9 @@ export function Cart() {
                         <Link to="/">Home</Link>
                     </div>
                 </div>
-      </Content>
-      <Footer>
-      </Footer>
-    </Layout>
+            </Content>
+            <Footer>
+            </Footer>
+        </Layout>
     )
   };
